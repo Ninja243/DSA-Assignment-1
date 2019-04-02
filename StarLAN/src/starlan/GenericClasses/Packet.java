@@ -36,6 +36,8 @@ public class Packet<AnyType> {
         public void setDestination(String destination) throws ObjectNotCreatedException {
             if (header == null) {
                 throw new ObjectNotCreatedException("Packet Header");
+            } else {
+                header.setDestination(destination);
             }
         }
         

@@ -11,10 +11,10 @@ package starlan.GenericClasses;
  */
 import starlan.GenericClasses.Packet;
 import starlan.GenericClasses.Device;
-public class Client extends Device {
+public class clientNode extends Device {
     private String[] protocols;
     
-    public Client() {}
+    public clientNode() {}
     
     public void RecievePacket(Packet p) {
         // Check the header to see if we are the right client

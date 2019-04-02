@@ -13,6 +13,9 @@ public class Address {
         if (address.contains(". ")) {
             return false;
         }
+        if (address.contains(" .")) {
+            return false;
+        }
         // If nothing else has returned false, we're golden
         return true;
     }
