@@ -50,3 +50,6 @@ To make sure that everything is working as intended, automated tests can be set 
 
 ### Client types
 Different clients can be simutated by only being able to connect to servers of a specific type. A desktop computer from the late 1980's probably won't be able to connect to a WiFi network without a lot of effort so we could set it up so that's not possible.
+
+### Streams
+All devices on the network should be able to write to their own output stream
