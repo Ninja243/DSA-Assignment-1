@@ -31,5 +31,22 @@ Legal examples include:
 *  intnet
 
 
+## Extra features to get those creativity points
 
+### Packets
+Messages can be sent in packets of a packet class. This way the nodes can acknowledge the reciept of the packets or even report back to the client if the node the packet is meant for cannot be reached. This will mean that a packet needs to have some kind of a unique identifier.
 
+### Routing
+Sent messages can have a header with the name of the rest of their journey, with the current node's name being removed from the header on receipt.
+
+### Server types
+The transmission methods do not have to be similar. Hubs can be simulated by having the server transmit the packets to everything it's connected to and trusting the clients to drop them or switches could be simulated by sending only one packet to the next node in the chain.
+
+### Client protocols
+Different protocols can be simulated by obfuscating the sent messages in specific ways that require support for a specific protocol to deobfuscate. For example a fictional protocol could be simulated by having the text of the message sent in reverse and only clients with support for the right function will be able to display the message correctly.
+
+### Testing
+To make sure that everything is working as intended, automated tests can be set up, making the network perform edge-case operations when this feature is run.
+
+### Client types
+Different clients can be simutated by only being able to connect to servers of a specific type. A desktop computer from the late 1980's probably won't be able to connect to a WiFi network without a lot of effort so we could set it up so that's not possible.
