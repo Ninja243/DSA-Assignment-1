@@ -16,10 +16,34 @@ public class clientNode extends Device {
     
     public clientNode() {}
     
-    public void RecievePacket(Packet p) {
+    public void recievePacket(Packet p) {
         // Check the header to see if we are the right client
         // If not, drop it
+
+        // Split destination address
+        // Use \\. since . means something else in regular expressions
+        String[] splitAddress = p.getDestination().split("\\.");
+
+        if(splitAddress[splitAddress.length - 1].equals(p.getDestination())){
+            // Match :-)
+        }else{
+            // dropped
+        }
         
-        
+    }
+
+    public void sendPacket(){
+
+    }
+
+    public boolean isProtocolValid(String prot){
+        // Confirm if :param:`prot` is within the permissible protocols
+        for (int i = 0; i < protocols.length; i++) {
+            if (protocols[i].equals(prot)){
+                return true;
+            }
+        }
+        // No match has been found
+        return false;
     }
 }

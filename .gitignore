@@ -1,3 +1,6 @@
 /StarLAN/nbproject/private/
 /Searching/nbproject/private/
 /Searching/build/
+*.xml
+*.iml
+*.xml___jb_tmp___
