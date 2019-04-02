@@ -30,6 +30,8 @@ Legal examples include:
 *  intnet.server12.server21.server3.client
 *  intnet
 
+## The links
+The connections between the network devices can be done using a modified linked list, where a node would have an array of pointers that point to the devices it's connected to. For example, a server might have three clients connected to it, resulting in it having an array of length three which is filled with pointers to its clients. If a packet gets to a server and wants to go to a client that is not connected to the server, the packet should be dropped.
 
 ## Extra features to get those creativity points
 
