@@ -27,16 +27,19 @@ public class Packet<AnyType> {
         
         public Packet(String destination, AnyType data) {
             header = new PacketHeader(destination);
+            this.data = data;
         }
         
         public Packet(String destination, String source, AnyType data) {
             header = new PacketHeader(destination, source);
+            this.data = data;
         }
         
         public void setDestination(String destination) throws ObjectNotCreatedException {
             if (header == null) {
                 throw new ObjectNotCreatedException("Packet Header");
             }
+            header.setDestination(destination);
         }
         
         // No method to set data or the source, only get it as otherwise information can be more easily
