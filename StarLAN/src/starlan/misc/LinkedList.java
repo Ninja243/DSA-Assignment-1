@@ -90,4 +90,19 @@ public class LinkedList<AnyType> {
         }
     }
     
+    
+    @Override
+    public String toString() {
+        String out = "Linked List:\n";
+        if (head == null) {
+            out = out+"null";
+        } else {
+            Node currentNode = head;
+            while (currentNode.getNext() != null) {
+                out = out+currentNode.toString()+"\n";
+                currentNode = currentNode.getNext();
+            } 
+        }
+        return out;
+    }
 }
