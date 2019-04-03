@@ -38,6 +38,34 @@ public class LinkedList<AnyType> {
         }
     }
     
+    // Returns a position
+    public int search(AnyType data) {
+        // The list is not sorted so a linear search makes sense
+        Node toSearch = new Node<AnyType>(data) ;
+        return search(toSearch);
+    }
+    
+    // Returns a position
+    public int search(Node toSearch) {
+        if (head == null) {
+            return -1;
+        } else {
+            int position = 0;
+            Node currentNode = head;
+            while (currentNode != toSearch) {
+                // Check if we're about to crash
+                if (currentNode.getNext() == null) {
+                    return -1;
+                } else {
+                    currentNode = currentNode.getNext();
+                    position = position+1;
+                }
+            }
+            // We can only get to this point if we found the node
+            return position;
+        }
+    }
+    
     public void remove(int position) throws EmptyListException, InvalidPositionException {
         if (head == null) {
                 throw new EmptyListException();
