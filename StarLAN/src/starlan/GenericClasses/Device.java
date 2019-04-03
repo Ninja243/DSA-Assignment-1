@@ -7,7 +7,7 @@ package starlan.GenericClasses;
  *
  * @author mweya
  */
-import starlan.MiscMethods.Address;
+import starlan.misc.Address;
 import java.io.BufferedOutputStream;
 import starlan.ErrorClasses.InvalidAddressException;
 public class Device {

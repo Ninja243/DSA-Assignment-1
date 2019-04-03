@@ -1,5 +1,5 @@
 /* This file contains methods that handle Addresses */
-package starlan.MiscMethods;
+package starlan.misc;
 
 /**
  *

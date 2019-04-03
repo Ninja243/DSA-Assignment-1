@@ -55,3 +55,6 @@ Different clients can be simutated by only being able to connect to servers of a
 
 ### Streams
 All devices on the network should be able to write to their own output stream
+
+### List of clients
+Servers could use a list to store pointers to all the clients connected to them. A singly linked list should be fine as searching for the right client will be like searching through an unsorted array.
