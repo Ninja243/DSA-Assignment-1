@@ -10,7 +10,7 @@ package starlan.GenericClasses;
 import starlan.misc.Address;
 import java.io.BufferedOutputStream;
 import starlan.ErrorClasses.InvalidAddressException;
-public class Device {
+public class Device<AnyType> {
     private String address;
     private String model;
     //private BufferedOutputStream console = new BufferedOutputStream();
@@ -40,6 +40,27 @@ public class Device {
         } else {
             throw new InvalidAddressException();
         }
+    }
+    
+    // This method will be overidden by the Server class if needed
+    public void recievePacket(Packet packet) {
+        // Check to see if we should have the packet
+        if (this.address == packet.getDestination()){
+            // Read the info inside the packet
+            handleData((AnyType) packet.getData(), packet.getSource());
+        }
+        // If we shouldn't have this packet, ignore it
+    }
+    
+    public void sendPacket(Packet packet) {
+        
+    }
+    
+    // ToDo
+    public void handleData(AnyType data, String source) {
+        // This is temporary, should actually write to the device's 
+        // output stream
+        System.out.println("Packet recieved from "+source+"\n"+data);
     }
     
     @Override
