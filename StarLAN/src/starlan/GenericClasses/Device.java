@@ -7,12 +7,17 @@ package starlan.GenericClasses;
  *
  * @author mweya
  */
+import java.util.Date;
+import java.text.DateFormat;
 import starlan.misc.Address;
 import java.io.BufferedOutputStream;
 import starlan.ErrorClasses.InvalidAddressException;
 public class Device<AnyType> {
     private String address;
     private String model;
+    // The router device refers to the device we are connected to.
+    // Might be a good idea to think of it as one hop up the chain
+    private Device router;
     //private BufferedOutputStream console = new BufferedOutputStream();
     
     public Device() {}
@@ -53,6 +58,17 @@ public class Device<AnyType> {
     }
     
     public void sendPacket(Packet packet) {
+        
+    }
+    
+    // This should be used to display the information recieved by the 
+    // device
+    private void writeToConsole(String s) {
+         DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    }
+    
+    // Get a dump of the console's state (everything that has been written to it
+    public void readConsole() {
         
     }
     
