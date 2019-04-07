@@ -59,6 +59,12 @@ public class Device<AnyType> extends Node {
         sendPacket(p);
     }
     
+    // This project uses objects called packets to transfer data so this method is just a wrapper
+    // around the relevant method. Unknown or malformed packets are ignored.
+    public void recieve(Packet p) {
+        recievePacket(p);
+    }
+    
     // This method will be overidden by the Server class if needed
     public void recievePacket(Packet packet) {
         // Check to see if we should have the packet
