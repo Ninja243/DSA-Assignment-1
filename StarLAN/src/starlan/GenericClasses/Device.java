@@ -1,6 +1,8 @@
 /* This file describes a generic device that can be connected to the network.  
     The model of the device should be set when it is created and it does not 
     seem to make sense to change it later, hence the lack of a set model method*/
+
+/* A device is a node in the network, hence the fact that it extends the node class*/
 package starlan.GenericClasses;
 
 /**
@@ -9,10 +11,12 @@ package starlan.GenericClasses;
  */
 import java.util.Date;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import starlan.misc.Address;
+import starlan.misc.Node;
 import java.io.BufferedOutputStream;
 import starlan.ErrorClasses.InvalidAddressException;
-public class Device<AnyType> {
+public class Device<AnyType> extends Node {
     private String address;
     private String model;
     // The router device refers to the device we are connected to.
@@ -65,6 +69,8 @@ public class Device<AnyType> {
     // device
     private void writeToConsole(String s) {
          DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+         Date date = new Date();
+         
     }
     
     // Get a dump of the console's state (everything that has been written to it
