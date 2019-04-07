@@ -69,7 +69,7 @@ public class serverNode<AnyType> extends Device {
         }
         
         @Override
-        public void recievePacket(Packet packet) {
+        public void receivePacket(Packet packet) {
             String whereto = packet.getDestination();
             if (packet.getDestination().equals(this.getAddress())) {
                 // If we're where it needs to be, handle it

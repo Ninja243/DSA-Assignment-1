@@ -15,26 +15,6 @@ public class clientNode extends Device {
     private String[] protocols;
     
     public clientNode() {}
-    
-    public void recievePacket(Packet p) {
-        // Check the header to see if we are the right client
-        // If not, drop it
-
-        // Split destination address
-        // Use \\. since . means something else in regular expressions
-        String[] splitAddress = p.getDestination().split("\\.");
-
-        if(splitAddress[splitAddress.length - 1].equals(p.getDestination())){
-            // Match :-)
-        }else{
-            // dropped
-        }
-        
-    }
-
-    public void sendPacket(){
-
-    }
 
     public boolean isProtocolValid(String prot){
         // Confirm if :param:`prot` is within the permissible protocols

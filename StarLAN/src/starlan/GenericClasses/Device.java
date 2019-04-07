@@ -14,7 +14,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import starlan.misc.Address;
 import starlan.misc.Node;
-import java.io.BufferedOutputStream;
 import starlan.ErrorClasses.InvalidAddressException;
 public class Device<AnyType> extends Node {
     private String address;
@@ -61,14 +60,19 @@ public class Device<AnyType> extends Node {
     
     // This project uses objects called packets to transfer data so this method is just a wrapper
     // around the relevant method. Unknown or malformed packets are ignored.
-    public void recieve(Packet p) {
-        recievePacket(p);
+    public void receive(Packet p) {
+        receivePacket(p);
     }
     
-    // This method will be overidden by the Server class if needed
-    public void recievePacket(Packet packet) {
+    // This method will be overridden by the Server class if needed
+    public void receivePacket(Packet packet) {
+        // Split destination address
+        // Address format: subnet.server.client
+        // Use \\. since . means something else in regular expressions
+        String[] splitAddress = packet.getDestination().split("\\.");
+
         // Check to see if we should have the packet
-        if (this.address.equals(packet.getDestination())){
+        if(splitAddress[splitAddress.length - 1].equals(packet.getDestination())){
             // Read the info inside the packet
             handleData((AnyType) packet.getData(), packet.getSource());
         }
