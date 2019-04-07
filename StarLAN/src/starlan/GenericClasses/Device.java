@@ -51,10 +51,18 @@ public class Device<AnyType> extends Node {
         }
     }
     
+    // Required by the document
+    public void send(String destination, AnyType data) {
+        // Make a packet to send and then send it
+        // Default behaviour is to add the sender's information to the packet when it's sent
+        Packet p = new Packet(destination, this.address, data);
+        sendPacket(p);
+    }
+    
     // This method will be overidden by the Server class if needed
     public void recievePacket(Packet packet) {
         // Check to see if we should have the packet
-        if (this.address == packet.getDestination()){
+        if (this.address.equals(packet.getDestination())){
             // Read the info inside the packet
             handleData((AnyType) packet.getData(), packet.getSource());
         }
