@@ -58,6 +58,10 @@ public class Packet<AnyType> {
         public AnyType getData() {
             return this.data;
         }
+
+        public String getHeaderSubnet(){
+            return header.getTheSubnet();
+        }
         
         @Override
         public String toString() {

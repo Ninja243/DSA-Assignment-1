@@ -22,6 +22,9 @@ public class Device<AnyType> extends Node {
     // Might be a good idea to think of it as one hop up the chain
     private Device router;
     //private BufferedOutputStream console = new BufferedOutputStream();
+
+    // Subnet name of device
+    private String subnetName;
     
     public Device() {}
     
@@ -33,7 +36,15 @@ public class Device<AnyType> extends Node {
         this.address = address;
         this.model = model;
     }
-    
+
+    public String getSubnetName(){
+        return subnetName;
+    }
+
+    public void setSubnetName(String subnetName){
+        this.subnetName = subnetName;
+    }
+
     public String getAddress() {
         return this.address;
     }
@@ -51,11 +62,12 @@ public class Device<AnyType> extends Node {
     }
     
     // Required by the document
-    public void send(String destination, AnyType data) {
+    // :param:`mainServer` is to easily reference the control device
+    public void send(String destination, AnyType data, serverNode mainServer) {
         // Make a packet to send and then send it
         // Default behaviour is to add the sender's information to the packet when it's sent
         Packet p = new Packet(destination, this.address, data);
-        sendPacket(p);
+        sendPacket(p, mainServer);
     }
     
     // This project uses objects called packets to transfer data so this method is just a wrapper
@@ -70,17 +82,18 @@ public class Device<AnyType> extends Node {
         // Address format: subnet.server.client
         // Use \\. since . means something else in regular expressions
         String[] splitAddress = packet.getDestination().split("\\.");
-
         // Check to see if we should have the packet
-        if(splitAddress[splitAddress.length - 1].equals(packet.getDestination())){
+        if(splitAddress[splitAddress.length - 1].equals(address)){
             // Read the info inside the packet
             handleData((AnyType) packet.getData(), packet.getSource());
+        }else{
+            System.out.println("not our address -> "+splitAddress[splitAddress.length-1] +" != "+address);
         }
         // If we shouldn't have this packet, ignore it
     }
     
-    public void sendPacket(Packet packet) {
-        
+    public void sendPacket(Packet packet, serverNode mainServer) {
+        mainServer.receivePacket(packet);
     }
     
     // This should be used to display the information recieved by the 

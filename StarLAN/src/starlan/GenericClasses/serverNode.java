@@ -2,81 +2,128 @@
 package starlan.GenericClasses;
 
 /**
- *
  * @author mweya
  */
-import starlan.misc.LinkedList;
+//import starlan.misc.LinkedList;
+
+import starlan.ErrorClasses.InvalidAddressException;
 import starlan.GenericClasses.Device;
+
+import java.util.LinkedList;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 public class serverNode<AnyType> extends Device {
-        // This is a linked list nested inside a linked list. 
-        // It contains the client devices that would be connected to this server device
-        private LinkedList clients = new LinkedList<>();
-        // This string stores information about the kind of server we are.
-        private String type = null;
-        
-        // This constructor does not supply the object created from this class with any additional information
-        public serverNode() {}
-        
-        // This constructor supplies the object with information about it's type.
-        // This should be the default constructor.
-        public serverNode(String type) {
-            this.type = type;
+    // This is a linked list nested inside a linked list.
+    // It contains the client devices that would be connected to this server device
+    private LinkedList<Device> clients = new LinkedList<>();
+    // This string stores information about the kind of server we are.
+    private String type = null;
+
+
+    // This constructor does not supply the object created from this class with any additional information
+    public serverNode() {
+    }
+
+    // This constructor supplies the object with information about it's type.
+    // This should be the default constructor.
+    public serverNode(String type) {
+        this.type = type;
+    }
+
+    public serverNode(String address, String sub) {
+        this.type = address;
+        try {
+            super.setAddress(address);
+        } catch (InvalidAddressException e) {
         }
-        
-        // This constructor supplies the object with information about the kind of server it is and a list of clients it
-        // has connected to it.
-        public serverNode(String type, LinkedList clients) {
-            this.type = type;
-            this.clients = clients;
+        setSubnetName(sub);
+    }
+
+
+    // This constructor supplies the object with information about the kind of server it is and a list of clients it
+    // has connected to it.
+    public serverNode(String type, LinkedList clients) {
+        this.type = type;
+        this.clients = clients;
+    }
+
+
+    // A wrapper for the add client method
+    public void add(Device d) {
+        addClient(d);
+    }
+
+    // This method adds a client to the list of clients this server is responsible for
+    public void addClient(Device d) {
+        this.clients.add(d);
+    }
+
+    // A wrapper for the removeClient method
+    public void remove(int position) {
+        removeClient(position);
+    }
+
+    // A wrapper for the removeClient method
+    public void remove(Device d) {
+        removeClient(d);
+    }
+
+    // Removes a client from a specific position in the list
+    public void removeClient(int position) {
+        try {
+            this.clients.remove(position);
+        } catch (Exception e) {
+            System.err.println(e.toString());
         }
-        
-        // A wrapper for the add client method
-        public void add(Device d) {
-            addClient(d);
+    }
+
+    // Removes a specific client from the list
+    public void removeClient(Device d) {
+        try {
+            this.clients.remove(d);
+        } catch (Exception e) {
+            System.err.println(e.toString());
         }
-        
-        // This method adds a client to the list of clients this server is responsible for
-        public void addClient(Device d) {
-            this.clients.add(d);
-        }
-        
-        // A wrapper for the removeClient method
-        public void remove(int position) {
-            removeClient(position);
-        }
-        
-        // A wrapper for the removeClient method
-        public void remove(Device d) {
-            removeClient(d);
-        }
-        
-        // Removes a client from a specific position in the list
-        public void removeClient(int position) {
-            try {
-              this.clients.remove(position);  
-            } catch (Exception e) {
-                System.err.println(e.toString());
-            } 
-        }
-        
-        // Removes a specific client from the list
-        public void removeClient(Device d) {
-            try {
-              this.clients.remove(d);  
-            } catch (Exception e) {
-                System.err.println(e.toString());
-            } 
-        }
-        
-        @Override
-        public void receivePacket(Packet packet) {
-            String whereto = packet.getDestination();
-            if (packet.getDestination().equals(this.getAddress())) {
-                // If we're where it needs to be, handle it
-                handleData((AnyType) packet.getData(), packet.getSource());
+    }
+
+    @Override
+    public void receivePacket(Packet packet) {
+        String whereto = packet.getDestination();
+        // Check if subnet is ours, else send to appropriate server of specifies subnet
+        String[] splitAddress = whereto.split("\\.");
+
+        // Check if subnet of packet is ours
+        if (packet.getHeaderSubnet().equals(getSubnetName())) {
+            // Is our subnet
+            // Now find client and send to them. But first check if it's ours
+            if (splitAddress[splitAddress.length - 1].equals(getAddress())) {
+                //System.out.println("Packet received!");
+
+                // Handle pings
+                if (packet.getData().equals("ICMP") && packet.getSource() != null) {
+                    receive(new Packet(packet.getSource(), "ICMP PACKET RECEIVED"));
+                } else {
+                    handleData((AnyType) packet.getData(), packet.getSource());
+                }
+
             } else {
-                // If we aren't the final destination, send the packet onwards
-                
+                // Find client then call :meth:`receivePacket`
+                for (Device c : clients) {
+                    if (c.getAddress().equals(splitAddress[splitAddress.length - 1])) {
+                        c.receivePacket(packet);
+                    }
+                }
+            }
+        } else {
+            // Send to proper subnet
+            // This is sort of recursive in a way
+            for (String tempSubName : Star._subnets.keySet()) {
+                if (packet.getHeaderSubnet().equals(Star._subnets.get(tempSubName).getSubnetName())) {
+                    // call receive on server with subnet in packet header
+                    Star._subnets.get(packet.getHeaderSubnet()).receive(packet);
+                }
             }
         }
+    }
 }
