@@ -34,6 +34,7 @@ public class LinkedList<AnyType> {
             while (currentNode.getNext() != null) {
                 currentNode = currentNode.getNext();
             }
+            toadd.setPrev(currentNode);
             currentNode.setNext(toadd);
         }
     }
