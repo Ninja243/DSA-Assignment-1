@@ -22,6 +22,9 @@ public class Device<AnyType> extends Node {
     // Might be a good idea to think of it as one hop up the chain
     private Device router;
     //private BufferedOutputStream console = new BufferedOutputStream();
+
+    // Subnet name of device
+    private String subnetName;
     
     public Device() {}
     
@@ -33,7 +36,15 @@ public class Device<AnyType> extends Node {
         this.address = address;
         this.model = model;
     }
-    
+
+    public String getSubnetName(){
+        return subnetName;
+    }
+
+    public void setSubnetName(String subnetName){
+        this.subnetName = subnetName;
+    }
+
     public String getAddress() {
         return this.address;
     }
@@ -44,18 +55,21 @@ public class Device<AnyType> extends Node {
     
     public void setAddress(String address) throws InvalidAddressException {
         if (Address.isLegal(address)) {
-            this.address = address;
+            String[] splitAddress = address.split("\\.");
+            this.address = splitAddress[0]+"."+splitAddress[1];
+            setSubnetName(splitAddress[0]);
         } else {
             throw new InvalidAddressException();
         }
     }
     
     // Required by the document
-    public void send(String destination, AnyType data) {
+    // :param:`mainServer` is to easily reference the control device
+    public void send(String destination, AnyType data, serverNode mainServer) {
         // Make a packet to send and then send it
         // Default behaviour is to add the sender's information to the packet when it's sent
         Packet p = new Packet(destination, this.address, data);
-        sendPacket(p);
+        sendPacket(p, mainServer);
     }
     
     // This project uses objects called packets to transfer data so this method is just a wrapper
@@ -66,21 +80,26 @@ public class Device<AnyType> extends Node {
     
     // This method will be overridden by the Server class if needed
     public void receivePacket(Packet packet) {
-        // Split destination address
-        // Address format: subnet.server.client
-        // Use \\. since . means something else in regular expressions
-        String[] splitAddress = packet.getDestination().split("\\.");
-
         // Check to see if we should have the packet
-        if(splitAddress[splitAddress.length - 1].equals(packet.getDestination())){
+        String[] tempArrayClientAddress = getAddress().split("\\.");
+        String[] tempArrayPacketDst = packet.getDestination().split("\\.");
+        //end address is last element of array
+        String cAddress = tempArrayClientAddress[tempArrayClientAddress.length - 1];
+        String pDst = tempArrayPacketDst[tempArrayPacketDst.length - 1];
+        if(pDst.equals(cAddress)){
             // Read the info inside the packet
+//            System.out.println(packet.toString());
             handleData((AnyType) packet.getData(), packet.getSource());
+        }else{
+            System.out.println("not our address -> "+packet.getDestination() +" != "+address);
         }
         // If we shouldn't have this packet, ignore it
     }
     
-    public void sendPacket(Packet packet) {
-        
+    public void sendPacket(Packet packet, serverNode mainServer) {
+
+        mainServer.receivePacket(packet);
+//        System.out.println("Packet sent:\n"+packet.toString());
     }
     
     // This should be used to display the information recieved by the 
@@ -100,7 +119,11 @@ public class Device<AnyType> extends Node {
     public void handleData(AnyType data, String source) {
         // This is temporary, should actually write to the device's 
         // output stream
-        System.out.println("Packet recieved from "+source+"\n"+data);
+
+        // Only show source if not null
+        source = (source==null)?":":" from "+source+":";
+
+        System.out.println("Packet recieved"+source+"\n"+data);
     }
     
     @Override

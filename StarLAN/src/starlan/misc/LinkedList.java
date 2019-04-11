@@ -118,8 +118,8 @@ public class LinkedList<AnyType> {
             }
         }
     }
-    
-    
+
+
     @Override
     public String toString() {
         String out = "Linked List:\n";

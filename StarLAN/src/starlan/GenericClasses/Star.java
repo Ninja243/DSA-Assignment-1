@@ -9,12 +9,24 @@ package starlan.GenericClasses;
  */
 import starlan.misc.LinkedList;
 import starlan.GenericClasses.Device;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Star extends LinkedList {
     private String networkName;
-    
+    // To allow easy communication between the server nodes of different stars
+    public static Map<String,Device> _subnets = new HashMap<String,Device>();
     public Star() {}
-    
-    public void insertNode(Device toinsert) {
+
+    // For server nodes
+    public void insertNode(serverNode toinsert) {
+        _subnets.put(toinsert.getSubnetName(), toinsert);
+        super.add(toinsert);
+    }
+
+    // For client nodes
+    public void insertNode(clientNode toinsert) {
         super.add(toinsert);
     }
     

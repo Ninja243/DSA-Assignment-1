@@ -8,20 +8,23 @@ package starlan.SpecificClasses;
 public class PacketHeader {
         private String destination = null;
         private String source = null;
-        
+        private String headerSubnet;
         public PacketHeader() {
-        
+
         }
         
         public PacketHeader(String destination) {
             this.destination = destination;
+            headerSubnet = destination.split("\\.")[0];
         }
         
         public PacketHeader(String destination, String source) {
             this.destination = destination;
+            headerSubnet = destination.split("\\.")[0];
             this.source = source;
         }
-        
+
+
         public String getDestination() {
             return this.destination;
         }
@@ -30,10 +33,13 @@ public class PacketHeader {
             return this.source;
         }
         
+        public String getTheSubnet(){
+            return headerSubnet;
+        }
         public void setDestination(String destination) {
             this.destination = destination;
         }
-       
+
         
         @Override
         public String toString() {
