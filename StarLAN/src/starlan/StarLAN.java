@@ -37,8 +37,8 @@ public class StarLAN {
     public static Map<String, clientNode> clientsDict = new HashMap<String, clientNode>();
 
     public static void main(String[] args) {
-        testing();
-//        startScreen();
+//        testing();
+        startScreen();
 //        lltest();
     }
 
@@ -92,8 +92,13 @@ public class StarLAN {
                             System.out.print("> ");
                             int index = Integer.parseInt(input.nextLine());
                             serverNode tempServerNode = allServers.get(index);
-                            System.out.println("adddddddrrrrrrr " + tempServerNode.getAddress());
-                            star.removeNode(tempServerNode);
+                            try {
+                                star.remove(star.search(tempServerNode));
+                            } catch (EmptyListException e) {
+                                e.printStackTrace();
+                            } catch (InvalidPositionException e) {
+                                e.printStackTrace();
+                            }
                             allServers.remove(index);
                         }
 
@@ -245,19 +250,13 @@ public class StarLAN {
             // :meth:`~LinkedList.remove(Node)` doesn't work right now
             // so use this temporary workaround
             star.remove(star.search(server));
+            // Currently has a bug, use above as temporary workaround
+//            star.remove(server);
         } catch (EmptyListException e) {
             e.printStackTrace();
         } catch (InvalidPositionException e) {
             e.printStackTrace();
         }
-        try {
-            star.remove(server);
-        } catch (EmptyListException e) {
-            e.printStackTrace();
-        } catch (NodeNotFoundException e) {
-            e.printStackTrace();
-        }
-
     }
 
 }
