@@ -10,22 +10,22 @@ import starlan.ErrorClasses.InvalidPositionException;
 import starlan.ErrorClasses.NodeNotFoundException;
 public class LinkedList<AnyType> {
     private Node<AnyType> head = null;
-
+    
     public LinkedList() {}
-
+    
     public LinkedList(Node head) {
         this.head = head;
     }
-
+    
     public LinkedList(AnyType data) {
         this.head = new Node<AnyType>(data);
     }
-
+    
     public void add(AnyType data) {
         Node toadd = new Node<AnyType>(data);
         add(toadd);
     }
-
+    
     public void  add(Node toadd) {
         if (head == null) {
             this.head = toadd;
@@ -37,14 +37,14 @@ public class LinkedList<AnyType> {
             currentNode.setNext(toadd);
         }
     }
-
+    
     // Returns a position
     public int search(AnyType data) {
         // The list is not sorted so a linear search makes sense
         Node toSearch = new Node<AnyType>(data) ;
         return search(toSearch);
     }
-
+    
     // Returns a position
     public int search(Node toSearch) {
         if (head == null) {
@@ -65,7 +65,7 @@ public class LinkedList<AnyType> {
             return position;
         }
     }
-
+    
     public void remove(int position) throws EmptyListException, InvalidPositionException {
         if (head == null) {
                 throw new EmptyListException();
@@ -80,7 +80,7 @@ public class LinkedList<AnyType> {
                     } else {
                         currentNode = currentNode.getNext();
                     }
-                   j = j+1;
+                   j = j+1; 
                 }
                 // We stopped at the node before the node we need to remove
                 // Therefore we can "delete" the next node by setting this node's next
@@ -92,7 +92,7 @@ public class LinkedList<AnyType> {
                 }
         }
     }
-
+    
     public void remove(Node toremove) throws EmptyListException, NodeNotFoundException {
         if (head == null) {
             throw new EmptyListException();
@@ -108,7 +108,7 @@ public class LinkedList<AnyType> {
                     prevNode = currentNode;
                     currentNode = currentNode.getNext();
                 }
-            }
+            } 
             // We can only get here if the node was found
             if (prevNode.getNext().getNext() == null) {
                 prevNode.setNext(null);
@@ -129,7 +129,7 @@ public class LinkedList<AnyType> {
             while (currentNode.getNext() != null) {
                 out = out+currentNode.toString()+"\n";
                 currentNode = currentNode.getNext();
-            }
+            } 
         }
         return out;
     }
