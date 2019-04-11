@@ -12,6 +12,7 @@ import starlan.GenericClasses.Packet;
 import starlan.GenericClasses.Star;
 import starlan.GenericClasses.clientNode;
 import starlan.GenericClasses.serverNode;
+import starlan.misc.LinkedList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,9 @@ public class StarLAN {
      * @param args the command line arguments
      */
     static Scanner input = new Scanner(System.in);
+    //
     static Star star = new Star();
-    // Holds all servers for easy referencing
+    // Holds all servers for easy referencing to connected clients
     static ArrayList<serverNode> allServers = new ArrayList<>();
 
     public static Map<String, clientNode> clientsDict = new HashMap<String, clientNode>();
@@ -36,8 +38,17 @@ public class StarLAN {
     public static void main(String[] args) {
         testing();
 //        startScreen();
+//        lltest();
     }
 
+    public static void lltest() {
+        LinkedList list = new LinkedList("test");
+        try {
+            list.remove(0);
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
     public static void startScreen() {
         boolean shouldBreak = false;
         while (!shouldBreak) {
@@ -228,6 +239,9 @@ public class StarLAN {
         c1.sendPacket(pt, server);
 
         try {
+            // :meth:`~LinkedList.remove(int)` works
+            // :meth:`~LinkedList.remove(Node)` doesn't work right now
+            // so use this temporary workaround
             star.remove(star.search(server));
         } catch (EmptyListException e) {
             e.printStackTrace();
