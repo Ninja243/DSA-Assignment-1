@@ -11,6 +11,7 @@ import starlan.misc.LinkedList;
 import starlan.GenericClasses.Device;
 
 import java.util.HashMap;
+//import java.util.LinkedList;
 import java.util.Map;
 
 public class Star extends LinkedList {
@@ -33,8 +34,13 @@ public class Star extends LinkedList {
     public void removeNode(Device toremove) {
         try {
             super.remove(toremove);
+            // Remove server from known subnets
+            if(toremove instanceof serverNode){
+                _subnets.remove(toremove.getAddress());
+            }
         } catch (Exception e) {
-            System.err.println(e.toString());
+//            e.printStackTrace();
+//            System.err.println(e.getLocalizedMessage());
         }
     }
 }
