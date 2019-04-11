@@ -85,10 +85,12 @@ public class LinkedList<AnyType> {
                 // We stopped at the node before the node we need to remove
                 // Therefore we can "delete" the next node by setting this node's next
                 // to the one after the next one.
-                if (currentNode.getNext().getNext() != null) {
-                    currentNode.setNext(currentNode.getNext().getNext());
-                } else {
-                    currentNode.setNext(null);
+                if (currentNode.getNext() != null) {
+                    if (currentNode.getNext().getNext() != null) {
+                        currentNode.setNext(currentNode.getNext().getNext());
+                    } else {
+                        currentNode.setNext(null);
+                    }
                 }
         }
     }
@@ -99,21 +101,21 @@ public class LinkedList<AnyType> {
         } else {
             int j = 0;
             Node currentNode = head;
-            Node prevNode = null;
+           
             while (toremove != currentNode) {
                 // Catch crashes before they happen
                 if (currentNode.getNext() == null) {
                     throw new NodeNotFoundException();
                 } else {
-                    prevNode = currentNode;
+                    j = j+1;
                     currentNode = currentNode.getNext();
                 }
             } 
             // We can only get here if the node was found
-            if (prevNode.getNext().getNext() == null) {
-                prevNode.setNext(null);
-            } else {
-                prevNode.setNext(prevNode.getNext().getNext());
+            try {
+                remove(j);
+            } catch (Exception e) {
+                System.err.println(e.toString());
             }
         }
     }
