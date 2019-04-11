@@ -15,6 +15,7 @@ import starlan.GenericClasses.serverNode;
  *
  * @author mweya
  */
+import starlan.misc.LinkedList;
 public class StarLAN {
 
     /**
@@ -22,9 +23,18 @@ public class StarLAN {
      */
     public static void main(String[] args) {
         testing();
-
+        //lltest();
     }
 
+    public static void lltest() {
+        LinkedList list = new LinkedList("test");
+        try {
+            list.remove(0);
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
+    
     public static void testing() {
         Star star = new Star();
         serverNode server = new serverNode("subnet1.server1");

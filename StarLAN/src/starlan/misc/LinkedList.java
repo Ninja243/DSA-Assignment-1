@@ -86,8 +86,12 @@ public class LinkedList<AnyType> {
                 // We stopped at the node before the node we need to remove
                 // Therefore we can "delete" the next node by setting this node's next
                 // to the one after the next one.
-                if (currentNode.getNext().getNext() != null) {
-                    currentNode.setNext(currentNode.getNext().getNext());
+                if (currentNode.getNext() != null) {
+                    if (currentNode.getNext().getNext() != null) {
+                        currentNode.setNext(currentNode.getNext().getNext());
+                    } else {
+                        currentNode.setNext(null);
+                    }
                 } else {
                     currentNode.setNext(null);
                 }
