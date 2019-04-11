@@ -16,20 +16,37 @@ import starlan.GenericClasses.serverNode;
  * @author mweya
  */
 import starlan.misc.LinkedList;
+import starlan.misc.Node;
 public class StarLAN {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        testing();
-        //lltest();
+        //testing();
+        lltest();
     }
 
     public static void lltest() {
         LinkedList list = new LinkedList("test");
         try {
             list.remove(0);
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        Node testNode = new Node("Test");
+        list.add(testNode);
+        Node testNode2 = new Node("Test2");
+        int h = 0;
+        while (h<34) {
+            list.add(testNode);
+            h=h+1;
+        }
+        list.add(testNode2);
+        try {
+            list.remove(testNode);
+            // Should fail
+            //list.remove(new Node());
         } catch (Exception e) {
             System.err.println(e.toString());
         }
