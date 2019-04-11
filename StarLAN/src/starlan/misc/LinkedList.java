@@ -108,7 +108,7 @@ public class LinkedList<AnyType> {
                     prevNode = currentNode;
                     currentNode = currentNode.getNext();
                 }
-            } 
+            }
             // We can only get here if the node was found
             if (prevNode.getNext().getNext() == null) {
                 prevNode.setNext(null);

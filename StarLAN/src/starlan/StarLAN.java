@@ -8,6 +8,7 @@ package starlan;
 import starlan.ErrorClasses.EmptyListException;
 import starlan.ErrorClasses.InvalidAddressException;
 import starlan.ErrorClasses.InvalidPositionException;
+import starlan.ErrorClasses.NodeNotFoundException;
 import starlan.GenericClasses.Packet;
 import starlan.GenericClasses.Star;
 import starlan.GenericClasses.clientNode;
@@ -49,6 +50,7 @@ public class StarLAN {
             System.err.println(e.toString());
         }
     }
+
     public static void startScreen() {
         boolean shouldBreak = false;
         while (!shouldBreak) {
@@ -90,7 +92,7 @@ public class StarLAN {
                             System.out.print("> ");
                             int index = Integer.parseInt(input.nextLine());
                             serverNode tempServerNode = allServers.get(index);
-                            System.out.println("adddddddrrrrrrr "+tempServerNode.getAddress());
+                            System.out.println("adddddddrrrrrrr " + tempServerNode.getAddress());
                             star.removeNode(tempServerNode);
                             allServers.remove(index);
                         }
@@ -248,6 +250,14 @@ public class StarLAN {
         } catch (InvalidPositionException e) {
             e.printStackTrace();
         }
+        try {
+            star.remove(server);
+        } catch (EmptyListException e) {
+            e.printStackTrace();
+        } catch (NodeNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
