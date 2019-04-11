@@ -9,12 +9,21 @@ package starlan.GenericClasses;
  *
  * @author mweya
  */
+import starlan.ErrorClasses.InvalidAddressException;
 import starlan.GenericClasses.Packet;
 import starlan.GenericClasses.Device;
 public class clientNode extends Device {
     private String[] protocols;
     
     public clientNode() {}
+
+    public clientNode(String address) {
+        try {
+            super.setAddress(address);
+        } catch (InvalidAddressException e) {
+            System.err.println(e.toString());
+        }
+    }
 
     public boolean isProtocolValid(String prot){
         // Confirm if :param:`prot` is within the permissible protocols

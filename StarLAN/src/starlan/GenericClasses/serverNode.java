@@ -27,17 +27,15 @@ public class serverNode<AnyType> extends Device {
 
     // This constructor supplies the object with information about it's type.
     // This should be the default constructor.
-    public serverNode(String type) {
-        this.type = type;
-    }
+//    public serverNode(String type) {
+//        this.type = type;
+//    }
 
-    public serverNode(String address, String sub) {
-        this.type = address;
+    public serverNode(String address) {
         try {
             super.setAddress(address);
         } catch (InvalidAddressException e) {
         }
-        setSubnetName(sub);
     }
 
 
@@ -91,18 +89,14 @@ public class serverNode<AnyType> extends Device {
     public void receivePacket(Packet packet) {
         String whereto = packet.getDestination();
         // Check if subnet is ours, else send to appropriate server of specifies subnet
-        String[] splitAddress = whereto.split("\\.");
-
-        // Check if subnet of packet is ours
         if (packet.getHeaderSubnet().equals(getSubnetName())) {
             // Is our subnet
-            // Now find client and send to them. But first check if it's ours
-            if (splitAddress[splitAddress.length - 1].equals(getAddress())) {
-                //System.out.println("Packet received!");
-
+            // Now find client and send to them. But first check if msg is meant for us
+            if (packet.getDestination().equals(getAddress())) {
                 // Handle pings
                 if (packet.getData().equals("ICMP") && packet.getSource() != null) {
-                    receive(new Packet(packet.getSource(), "ICMP PACKET RECEIVED"));
+                    System.out.println(packet.getSource());
+                    sendPacket(new Packet(packet.getSource(), "[+]ICMP REPLY[+]"), this);
                 } else {
                     handleData((AnyType) packet.getData(), packet.getSource());
                 }
@@ -110,8 +104,21 @@ public class serverNode<AnyType> extends Device {
             } else {
                 // Find client then call :meth:`receivePacket`
                 for (Device c : clients) {
-                    if (c.getAddress().equals(splitAddress[splitAddress.length - 1])) {
+                    /*
+                    packet dst like this: subnet.server.clientx
+                    since we're already under the correct subnet
+                    let's just compare the client-end address
+                    in the above example it would be 'clientx'
+                     */
+
+                    String[] tempArrayClientAddress = c.getAddress().split("\\.");
+                    String[] tempArrayPacketDst = packet.getDestination().split("\\.");
+                    //end address is last element of array
+                    String cAddress = tempArrayClientAddress[tempArrayClientAddress.length - 1];
+                    String pDst = tempArrayPacketDst[tempArrayPacketDst.length - 1];
+                    if (cAddress.equals(pDst)) {
                         c.receivePacket(packet);
+                        break;
                     }
                 }
             }

@@ -5,7 +5,6 @@ package starlan.SpecificClasses;
  *
  * @author mweya
  */
-// for git: add subnet to be sent to
 public class PacketHeader {
         private String destination = null;
         private String source = null;
