@@ -1,5 +1,5 @@
 # DSA-Assignment-1
-The first assignment I've gotten for DSA610S.
+The first assignment we've gotten for DSA610S.
 
 ## Layout
 Main class manages networks (Stars). The Star class contains server and client classes which should be able to communicate with one another.
