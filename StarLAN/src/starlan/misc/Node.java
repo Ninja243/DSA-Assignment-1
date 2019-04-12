@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* This class describes a Node which stores information  */
 package starlan.misc;
 
 public class Node<AnyType> {
     private Node next = null;
+    private Node prev = null;
     private AnyType data = null;
     
     public Node() {}
@@ -22,6 +19,14 @@ public class Node<AnyType> {
     
     public void setNext(Node next) {
         this.next = next;
+    }
+    
+    public Node getPrev() {
+        return this.prev;
+    }
+    
+    public void setPrev(Node prev) {
+        this.prev = prev;
     }
     
     public void setData(AnyType data) {

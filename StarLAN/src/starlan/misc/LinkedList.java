@@ -4,6 +4,7 @@ package starlan.misc;
 import starlan.ErrorClasses.EmptyListException;
 import starlan.ErrorClasses.InvalidPositionException;
 import starlan.ErrorClasses.NodeNotFoundException;
+
 public class LinkedList < AnyType > {
  private Node < AnyType > head = null;
 

@@ -23,6 +23,8 @@ import java.util.Scanner;
 /**
  * @author mweya
  */
+import starlan.misc.LinkedList;
+import starlan.misc.Node;
 public class StarLAN {
 
     /**
@@ -50,6 +52,10 @@ public class StarLAN {
     public static Map<String, clientNode> clientsDict = new HashMap<String, clientNode>();
 
     public static void main(String[] args) {
+
+
+    
+
 //        testing();
         startScreen();
 //        lltest();

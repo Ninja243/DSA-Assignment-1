@@ -4,4 +4,8 @@
 *.xml
 *.iml
 *.xml___jb_tmp___
+/bst/nbproject/private/
+/bst/build/
 *.class
+
+/StarLAN/build/
