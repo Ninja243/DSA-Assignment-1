@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* This class describes how a client should act */
 package starlan.GenericClasses;
 
 import starlan.ErrorClasses.InvalidAddressException;
