@@ -71,6 +71,7 @@ public class serverNode<AnyType> extends Device {
     public void removeClient(int position) {
         try {
             this.clients.remove(position);
+            System.out.println("removing done");
         } catch (Exception e) {
             System.err.println(e.toString());
         }
