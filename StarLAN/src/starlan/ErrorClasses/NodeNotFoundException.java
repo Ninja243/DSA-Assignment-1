@@ -1,10 +1,6 @@
 /* This exception is thrown when the node searched for has not been found */
 package starlan.ErrorClasses;
 
-/**
- *
- * @author mweya
- */
 import starlan.misc.Node;
 public class NodeNotFoundException extends Exception {
     public NodeNotFoundException() {

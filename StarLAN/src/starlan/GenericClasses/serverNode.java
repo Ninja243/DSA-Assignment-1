@@ -1,9 +1,6 @@
 /* This file describes a server and how it should react */
 package starlan.GenericClasses;
 
-/**
- * @author mweya
- */
 //import starlan.misc.LinkedList;
 
 import starlan.ErrorClasses.InvalidAddressException;

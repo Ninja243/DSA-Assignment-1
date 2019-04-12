@@ -1,10 +1,6 @@
 /* This is an example of how we can simulate specific devices. The device being specified here is a Gigabyte Sabre laptop */
 package starlan.SpecificDevices.Computers;
 
-/**
- *
- * @author mweya
- */
 import starlan.GenericClasses.Device;
 import starlan.GenericClasses.serverNode;
 public class GigabyteSabre<AnyType> extends Device{

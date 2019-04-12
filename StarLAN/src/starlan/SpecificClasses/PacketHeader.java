@@ -1,10 +1,6 @@
 /* This file describes how the packet's header should act. No methods for editing the packet's source should be implemented to make it harder to forge packets. */
 package starlan.SpecificClasses;
 
-/**
- *
- * @author mweya
- */
 public class PacketHeader {
         private String destination = null;
         private String source = null;

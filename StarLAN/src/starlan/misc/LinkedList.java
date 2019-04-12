@@ -1,10 +1,6 @@
 /* These classes define the linked list which stores information */
 package starlan.misc;
 
-/**
- *
- * @author mweya
- */
 import starlan.ErrorClasses.EmptyListException;
 import starlan.ErrorClasses.InvalidPositionException;
 import starlan.ErrorClasses.NodeNotFoundException;

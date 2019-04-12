@@ -5,10 +5,6 @@
  */
 package starlan.GenericClasses;
 
-/**
- *
- * @author mweya, et al.
- */
 import starlan.SpecificClasses.PacketHeader;
 import starlan.ErrorClasses.ObjectNotCreatedException;
 public class Packet < AnyType > {

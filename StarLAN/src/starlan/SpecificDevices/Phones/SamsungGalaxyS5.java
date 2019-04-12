@@ -1,10 +1,6 @@
 /* This is an example of how we can simulate specific devices. The device being specified here is a Samsung Galaxy S5 phone */
 package starlan.SpecificDevices.Phones;
 
-/**
- *
- * @author mweya
- */
 import starlan.GenericClasses.Device;
 import starlan.GenericClasses.serverNode;
 public class SamsungGalaxyS5<AnyType> extends Device{
