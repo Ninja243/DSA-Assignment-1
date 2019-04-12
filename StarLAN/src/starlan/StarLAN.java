@@ -37,8 +37,8 @@ public class StarLAN {
     public static Map<String, clientNode> clientsDict = new HashMap<String, clientNode>();
 
     public static void main(String[] args) {
-        testing();
-//        startScreen();
+//        testing();
+        startScreen();
 //        lltest();
     }
 
@@ -50,6 +50,170 @@ public class StarLAN {
             System.err.println(e.toString());
         }
     }
+    
+    public static void demoMode() throws InterruptedException {
+        String topBar = "\n[Demo Mode] \n";
+        // This is a demo so let's  have it loop infinitely
+        boolean demo = true;
+        while (demo) {
+            // Need some way to break out just in case
+            /*if () {demo = false;}*/
+            
+            // Make a network
+            System.out.println(topBar+"Build your network!");
+            Thread.sleep(2000);
+            System.out.print("Select an option\n" +
+                    "1 create subnet\n" + // insertNode
+                    "2 manage subnet\n" +
+                    "3 delete subnet\n" +
+                    "4 display current subnets\n" +
+                    "5 try out demo mode\n" +
+                    "6 exit\n> ");
+            Thread.sleep(1400);
+            System.out.println("1");
+            Thread.sleep(1400);
+            System.out.println("Enter server full address\n" +
+                                "E.g. subnetName.serverAddress");
+            Thread.sleep(1400);
+            System.out.println("intnet.server1");
+            serverNode temp = new serverNode("intnet.server1");
+            allServers.add(temp);
+            star.insertNode(temp);
+            Thread.sleep(2400);
+            
+            // Manage Network
+            System.out.println("\n\n"+topBar+"Manage your very own networks!");
+            Thread.sleep(2000);
+            System.out.print("Select an option\n" +
+                    "1 create subnet\n" + // insertNode
+                    "2 manage subnet\n" +
+                    "3 delete subnet\n" +
+                    "4 display current subnets\n" +
+                    "5 try out demo mode\n" +
+                    "6 exit\n> ");
+            Thread.sleep(1400);
+            System.out.println("2");
+            Thread.sleep(1400);
+            System.out.println("Enter subnet index");
+            for (int i = 0; i < allServers.size(); i++) {
+            System.out.println(i + " " + allServers.get(i).getSubnetName());
+            }
+            System.out.print("> ");
+            Thread.sleep(1400);
+            System.out.println("0");
+            Thread.sleep(1400);
+            System.out.println("1. Add clients\n" +
+                    "2. Remove client\n" +
+                    "3. Send message\n" +
+                    "4. Back");
+            System.out.print("> ");
+            Thread.sleep(2400);
+            
+            // Add clients
+            System.out.println("\n\n"+topBar+"Add clients to your subnet!");
+                        System.out.println("1. Add clients\n" +
+                    "2. Remove client\n" +
+                    "3. Send message\n" +
+                    "4. Back");
+            System.out.print("> ");
+            Thread.sleep(1400);
+            System.out.println("1");
+            Thread.sleep(1400);
+            System.out.println("How many client(s)?");
+            System.out.print("> ");
+            Thread.sleep(1400);
+            System.out.println("4");
+            System.out.print("Enter client address [e.g. client1]: ");
+            Thread.sleep(1400);
+            String cAddress =  temp.getAddress()+"."+"cl1";
+            System.out.println("cl1");
+            clientNode tempClient = new clientNode(cAddress);
+                            // Add to respective data structures
+                            temp.add(tempClient);
+                            clientsDict.put(cAddress, tempClient);
+            System.out.print("Enter client address [e.g. client1]: ");
+            Thread.sleep(1400);
+            cAddress =  temp.getAddress()+"."+"cl2";
+            System.out.println("cl2");
+            tempClient = new clientNode(cAddress);
+                            // Add to respective data structures
+                            temp.add(tempClient);
+                            clientsDict.put(cAddress, tempClient);
+                        System.out.print("Enter client address [e.g. client1]: ");
+            Thread.sleep(1400);
+            System.out.println("cl3");
+            cAddress =  temp.getAddress()+"."+"cl3";
+            tempClient = new clientNode(cAddress);
+                            // Add to respective data structures
+                            temp.add(tempClient);
+                            clientsDict.put(cAddress, tempClient);
+            System.out.print("Enter client address [e.g. client1]: ");
+            Thread.sleep(1400);
+            System.out.println("cl4");
+            cAddress =  temp.getAddress()+"."+"cl4";
+            tempClient = new clientNode(cAddress);
+                            // Add to respective data structures
+                            temp.add(tempClient);
+                            clientsDict.put(cAddress, tempClient);
+             Thread.sleep(2400);
+                            
+             // Remove clients
+             System.out.println("\n\n"+topBar+"Remove unwanted clients!");
+             System.out.println("1. Add clients\n" +
+                    "2. Remove client\n" +
+                    "3. Send message\n" +
+                    "4. Back");
+            System.out.print("> ");
+            Thread.sleep(1400);
+            System.out.println("2");
+            Thread.sleep(1400);
+            if (clientsDict.size() > 0) {
+                            System.out.println("Enter client to remove");
+                            for (String key : clientsDict.keySet()) {
+                                System.out.println(key);
+                            }
+                            System.out.print("> ");
+                            Thread.sleep(1400);
+                            System.out.println("cl3");
+                            Thread.sleep(1400);
+                            String clientToRemoveAddress = "cl3";
+                            Thread.sleep(1400);
+                            temp.remove(clientsDict.get(clientToRemoveAddress));
+                            clientsDict.remove(clientToRemoveAddress);
+                            System.out.println("Client removed");
+            }
+            
+            // Send messages same network
+            System.out.println("\n\n"+topBar+"Send messages between clients!");
+             System.out.println("1. Add clients\n" +
+                    "2. Remove client\n" +
+                    "3. Send message\n" +
+                    "4. Back");
+            System.out.print("> ");
+            Thread.sleep(1400);
+            System.out.println("3");
+            Thread.sleep(1400);
+            System.out.print("From: ");
+            Thread.sleep(1400);
+            System.out.println("cl1");
+            String from = temp.getAddress()+"."+"cl1";
+            Thread.sleep(1400);
+            System.out.print("To: ");
+            Thread.sleep(1400);
+            System.out.println("cl4");
+            Thread.sleep(1400);
+            String to = "cl4";
+            System.out.print("Message: ");
+            Thread.sleep(1400);
+            System.out.println("Hello from client 1!");
+            Thread.sleep(1400);
+            String msg = "Hello from client 1!";
+            // Retrieve client object from HashMap
+            clientsDict.get(from).sendPacket(new Packet(to, msg), temp);
+            
+            // 
+        }
+    }
 
     public static void startScreen() {
         boolean shouldBreak = false;
@@ -59,7 +223,8 @@ public class StarLAN {
                     "2 manage subnet\n" +
                     "3 delete subnet\n" +
                     "4 display current subnets\n" +
-                    "5 exit\n> "); // removeNode
+                    "5 try out demo mode\n" +
+                    "6 exit\n> ");
             try {
                 // Reference
                 // https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
@@ -105,6 +270,12 @@ public class StarLAN {
                         }
                         break;
                     case 5:
+                        try {
+                            demoMode();
+                        } catch (InterruptedException e) {
+                            System.err.println(e.toString());
+                        }
+                    case 6:
                         shouldBreak = true;
                         break;
                     default:
