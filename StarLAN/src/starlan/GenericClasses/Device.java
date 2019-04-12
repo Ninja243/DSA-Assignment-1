@@ -5,10 +5,6 @@
 /* A device is a node in the network, hence the fact that it extends the node class*/
 package starlan.GenericClasses;
 
-/**
- *
- * @author mweya
- */
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

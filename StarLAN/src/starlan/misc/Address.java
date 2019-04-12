@@ -1,10 +1,6 @@
 /* This file contains methods that handle Addresses */
 package starlan.misc;
 
-/**
- *
- * @author mweya
- */
 public class Address {
     public static boolean isLegal(String address) {
         if (address.contains("..")) {

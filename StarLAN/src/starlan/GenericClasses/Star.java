@@ -3,10 +3,6 @@
     sense to extend that class. */
 package starlan.GenericClasses;
 
-/**
- *
- * @author mweya
- */
 import starlan.misc.LinkedList;
 import starlan.GenericClasses.Device;
 

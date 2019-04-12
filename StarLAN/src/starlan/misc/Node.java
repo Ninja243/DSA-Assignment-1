@@ -5,10 +5,6 @@
  */
 package starlan.misc;
 
-/**
- *
- * @author mweya
- */
 public class Node<AnyType> {
     private Node next = null;
     private AnyType data = null;

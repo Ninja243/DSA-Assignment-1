@@ -5,10 +5,6 @@
  */
 package starlan.GenericClasses;
 
-/**
- *
- * @author mweya
- */
 import starlan.ErrorClasses.InvalidAddressException;
 import starlan.GenericClasses.Packet;
 import starlan.GenericClasses.Device;
