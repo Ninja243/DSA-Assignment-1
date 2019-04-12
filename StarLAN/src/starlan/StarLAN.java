@@ -210,8 +210,60 @@ public class StarLAN {
             String msg = "Hello from client 1!";
             // Retrieve client object from HashMap
             clientsDict.get(from).sendPacket(new Packet(to, msg), temp);
+            Thread.sleep(2400);
             
-            // 
+            // Display subnets
+            System.out.println("\n\n"+topBar+"Look at all your networks!");
+            System.out.print("Select an option\n" +
+                    "1 create subnet\n" + // insertNode
+                    "2 manage subnet\n" +
+                    "3 delete subnet\n" +
+                    "4 display current subnets\n" +
+                    "5 try out demo mode\n" +
+                    "6 exit\n> ");
+            Thread.sleep(1400);
+            System.out.println("4");
+            Thread.sleep(1400);
+            for (serverNode sub : allServers) {
+                            System.out.println(sub.getSubnetName());
+                        }
+            Thread.sleep(2400);
+            
+            // Delete subnet
+            System.out.println("\n"+topBar+"Delete all your hard work!");
+            System.out.print("Select an option\n" +
+                    "1 create subnet\n" + // insertNode
+                    "2 manage subnet\n" +
+                    "3 delete subnet\n" +
+                    "4 display current subnets\n" +
+                    "5 try out demo mode\n" +
+                    "6 exit\n> ");
+            Thread.sleep(1400);
+            System.out.println("3");
+            Thread.sleep(1400);
+             if (allServers.size() > 0) {
+                            System.out.println("[WARNING] Action cannot be reversed!");
+                            for (int i = 0; i < allServers.size(); i++) {
+                                System.out.println(i + " " + allServers.get(i).getAddress());
+                            }
+                            System.out.print("> ");
+                            Thread.sleep(1400);
+                            System.out.println("0");
+                            Thread.sleep(1400);
+                            int index = 0;
+                            serverNode tempServerNode = allServers.get(index);
+                            try {
+                                star.remove(star.search(tempServerNode));
+                            } catch (EmptyListException e) {
+                                e.printStackTrace();
+                            } catch (InvalidPositionException e) {
+                                e.printStackTrace();
+                            }
+                            allServers.remove(index);
+             }
+             
+             // End the demo after one iteration
+             demo = false;
         }
     }
 
