@@ -1,7 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+StarLAN
+A DSA project by the following students:
+
+218098731 Thankyou Hauwanga
+218118139 Mweya Ruider
+218060238 Richen Uamburu
+218065272 Rauna Fudheni 
+218057245 Thomas David 
+
  */
 package starlan;
 
