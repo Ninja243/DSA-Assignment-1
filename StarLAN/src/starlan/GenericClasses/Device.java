@@ -12,6 +12,8 @@ package starlan.GenericClasses;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import starlan.ConsoleColors;
 import starlan.misc.Address;
 import starlan.misc.Node;
 import starlan.ErrorClasses.InvalidAddressException;
@@ -123,7 +125,7 @@ public class Device < AnyType > extends Node {
   // Only show source if not null
   source = (source == null) ? ":" : " from " + source + ":";
 
-  System.out.println("Packet recieved" + source + "\n" + data);
+  System.out.println(ConsoleColors.WHITE+"Packet recieved" +ConsoleColors.RESET+ source + "\n" + ConsoleColors.BLUE+data+ConsoleColors.RESET);
  }
 
  @Override

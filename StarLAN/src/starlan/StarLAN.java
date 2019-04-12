@@ -35,6 +35,18 @@ public class StarLAN {
     // Holds all servers for easy referencing to connected clients
     static ArrayList<serverNode> allServers = new ArrayList<>();
 
+    static String mainOptions = ConsoleColors.CYAN + "Select an option\n" + ConsoleColors.RESET +
+            ConsoleColors.YELLOW_BOLD + "1 create subnet\n" + ConsoleColors.RESET + // insertNode
+            ConsoleColors.GREEN + "2 manage subnet\n" + ConsoleColors.RESET +
+            ConsoleColors.PURPLE_BOLD + "3 delete subnet\n" + ConsoleColors.RESET +
+            ConsoleColors.BLUE_BOLD + "4 display current subnets\n" + ConsoleColors.RESET +
+            ConsoleColors.WHITE + "5 try out demo mode\n" + ConsoleColors.RESET +
+            ConsoleColors.RED + "6 exit\n> " + ConsoleColors.RESET;
+    static String manageOptions = ConsoleColors.CYAN + "1. Add clients\n" +
+            "2. Remove client\n" +
+            "3. Send message\n" +
+            "4. Back" + ConsoleColors.RESET;
+
     public static Map<String, clientNode> clientsDict = new HashMap<String, clientNode>();
 
     public static void main(String[] args) {
@@ -61,7 +73,8 @@ public class StarLAN {
     // this one.
     // User input is simulated by pausing between printing statements to the screen.
     public static void demoMode() throws InterruptedException {
-        String topBar = "\n[Demo Mode] \n";
+        String topBar = ConsoleColors.BLUE + "\n[Demo Mode] \n" + ConsoleColors.RESET;
+
         // This is a demo so let's  have it loop infinitely
         boolean demo = true;
         while (demo) {
@@ -69,39 +82,27 @@ public class StarLAN {
             /*if () {demo = false;}*/
 
             // Make a network
-            System.out.println(topBar + "Build your network!\n");
+            System.out.println(topBar + ConsoleColors.YELLOW + "Build your network!\n" + ConsoleColors.RESET);
             Thread.sleep(2000);
-            System.out.print("Select an option\n" +
-                    "1 create subnet\n" + // insertNode
-                    "2 manage subnet\n" +
-                    "3 delete subnet\n" +
-                    "4 display current subnets\n" +
-                    "5 try out demo mode\n" +
-                    "6 exit\n> ");
+            System.out.print(mainOptions);
             Thread.sleep(1400);
             System.out.println("1");
             Thread.sleep(1400);
-            System.out.println("Enter server full address\n" +
-                    "E.g. subnetName.serverAddress");
+            System.out.println(ConsoleColors.CYAN + "Enter server full address\n" +
+                    "E.g. subnetName.serverAddress" + ConsoleColors.RESET);
             Thread.sleep(1400);
-            System.out.println("intnet.server1");
+            System.out.println(ConsoleColors.GREEN + "intnet.server1" + ConsoleColors.RESET);
             serverNode temp = new serverNode("intnet.server1");
             allServers.add(temp);
             star.insertNode(temp);
             Thread.sleep(2400);
 
             // Manage Network
-            System.out.println("\n" + topBar + "Manage your very own networks!\n");
+            System.out.println("\n" + topBar + ConsoleColors.YELLOW + "Manage your very own networks!\n" + ConsoleColors.RESET);
             Thread.sleep(2000);
-            System.out.print("Select an option\n" +
-                    "1 create subnet\n" + // insertNode
-                    "2 manage subnet\n" +
-                    "3 delete subnet\n" +
-                    "4 display current subnets\n" +
-                    "5 try out demo mode\n" +
-                    "6 exit\n> ");
+            System.out.print(mainOptions);
             Thread.sleep(1400);
-            System.out.println("2");
+            System.out.println(ConsoleColors.GREEN + "2" + ConsoleColors.RESET);
             Thread.sleep(1400);
             System.out.println("Enter subnet index");
             for (int i = 0; i < allServers.size(); i++) {
@@ -109,21 +110,15 @@ public class StarLAN {
             }
             System.out.print("> ");
             Thread.sleep(1400);
-            System.out.println("0");
+            System.out.println(ConsoleColors.GREEN + "0" + ConsoleColors.RESET);
             Thread.sleep(1400);
-            System.out.println("1. Add clients\n" +
-                    "2. Remove client\n" +
-                    "3. Send message\n" +
-                    "4. Back");
+            System.out.println(manageOptions);
             System.out.print("> ");
             Thread.sleep(2400);
 
             // Add clients
-            System.out.println("\n" + topBar + "Add clients to your subnet!\n");
-            System.out.println("1. Add clients\n" +
-                    "2. Remove client\n" +
-                    "3. Send message\n" +
-                    "4. Back");
+            System.out.println("\n" + topBar + ConsoleColors.YELLOW + "Add clients to your subnet!\n" + ConsoleColors.RESET);
+            System.out.println(manageOptions);
             System.out.print("> ");
             Thread.sleep(1400);
             System.out.println("1");
@@ -131,34 +126,34 @@ public class StarLAN {
             System.out.println("How many client(s)?");
             System.out.print("> ");
             Thread.sleep(1400);
-            System.out.println("4");
-            System.out.print("Enter client address [e.g. client1]: ");
+            System.out.println(ConsoleColors.GREEN + "4" + ConsoleColors.RESET);
+            System.out.print(ConsoleColors.PURPLE + "Enter client address [e.g. client1]: " + ConsoleColors.RESET);
             Thread.sleep(1400);
             String cAddress = temp.getSubnetName() + "." + "cl1";
-            System.out.println("cl1");
+            System.out.println(ConsoleColors.GREEN + "cl1" + ConsoleColors.RESET);
             clientNode tempClient = new clientNode(cAddress);
             // Add to respective data structures
             temp.add(tempClient);
             clientsDict.put(cAddress, tempClient);
-            System.out.print("Enter client address [e.g. client1]: ");
+            System.out.print(ConsoleColors.PURPLE + "Enter client address [e.g. client1]: " + ConsoleColors.RESET);
             Thread.sleep(1400);
             cAddress = temp.getSubnetName() + "." + "cl2";
-            System.out.println("cl2");
+            System.out.println(ConsoleColors.GREEN + "cl2" + ConsoleColors.RESET);
             tempClient = new clientNode(cAddress);
             // Add to respective data structures
             temp.add(tempClient);
             clientsDict.put(cAddress, tempClient);
-            System.out.print("Enter client address [e.g. client1]: ");
+            System.out.print(ConsoleColors.PURPLE + "Enter client address [e.g. client1]: " + ConsoleColors.RESET);
             Thread.sleep(1400);
-            System.out.println("cl3");
+            System.out.println(ConsoleColors.GREEN + "cl3" + ConsoleColors.RESET);
             cAddress = temp.getSubnetName() + "." + "cl3";
             tempClient = new clientNode(cAddress);
             // Add to respective data structures
             temp.add(tempClient);
             clientsDict.put(cAddress, tempClient);
-            System.out.print("Enter client address [e.g. client1]: ");
+            System.out.print(ConsoleColors.PURPLE + "Enter client address [e.g. client1]: " + ConsoleColors.RESET);
             Thread.sleep(1400);
-            System.out.println("cl4");
+            System.out.println(ConsoleColors.GREEN + "cl4" + ConsoleColors.RESET);
             cAddress = temp.getSubnetName() + "." + "cl4";
             tempClient = new clientNode(cAddress);
             // Add to respective data structures
@@ -167,14 +162,11 @@ public class StarLAN {
             Thread.sleep(2400);
 
             // Remove clients
-            System.out.println("\n" + topBar + "Remove unwanted clients!\n");
-            System.out.println("1. Add clients\n" +
-                    "2. Remove client\n" +
-                    "3. Send message\n" +
-                    "4. Back");
+            System.out.println("\n" + topBar + ConsoleColors.YELLOW + "Remove unwanted clients!\n" + ConsoleColors.RESET);
+            System.out.println(manageOptions);
             System.out.print("> ");
             Thread.sleep(1400);
-            System.out.println("2");
+            System.out.println(ConsoleColors.GREEN + "2" + ConsoleColors.RESET);
             Thread.sleep(1400);
             if (clientsDict.size() > 0) {
                 System.out.println("Enter client to remove");
@@ -183,97 +175,83 @@ public class StarLAN {
                 }
                 System.out.print("> ");
                 Thread.sleep(1400);
-                System.out.println("cl3");
+                System.out.println(ConsoleColors.GREEN + "cl3" + ConsoleColors.WHITE);
                 Thread.sleep(1400);
                 String clientToRemoveAddress = "cl3";
                 Thread.sleep(1400);
                 temp.remove(clientsDict.get(clientToRemoveAddress));
                 clientsDict.remove(clientToRemoveAddress);
-                System.out.println("Client removed");
+                System.out.println(ConsoleColors.RED + "Client removed" + ConsoleColors.RESET);
             }
 
             // Send messages same network
-            System.out.println("\n" + topBar + "Send messages between clients!\n");
-            System.out.println("1. Add clients\n" +
-                    "2. Remove client\n" +
-                    "3. Send message\n" +
-                    "4. Back");
+            System.out.println("\n" + topBar + ConsoleColors.YELLOW + "Send messages between clients!\n" + ConsoleColors.RESET);
+            System.out.println(manageOptions);
             System.out.print("> ");
             Thread.sleep(1400);
-            System.out.println("3");
+            System.out.println(ConsoleColors.GREEN + "3" + ConsoleColors.RESET);
             Thread.sleep(1400);
             System.out.print("From: ");
             Thread.sleep(1400);
-            System.out.println(temp.getSubnetName()+".cl1");
-            String from = temp.getSubnetName()+".cl1";
+            System.out.println(ConsoleColors.GREEN + temp.getSubnetName() + ".cl1" + ConsoleColors.RESET);
+            String from = temp.getSubnetName() + ".cl1";
             Thread.sleep(1400);
             System.out.print("To: ");
             Thread.sleep(1400);
-            System.out.println(temp.getSubnetName()+".cl4");
+            System.out.println(ConsoleColors.GREEN + temp.getSubnetName() + ".cl4" + ConsoleColors.RESET);
             Thread.sleep(1400);
-            String to = temp.getSubnetName()+".cl4";
+            String to = temp.getSubnetName() + ".cl4";
             System.out.print("Message: ");
             Thread.sleep(1400);
-            System.out.println("Hello from client 1!");
+            System.out.println(ConsoleColors.GREEN + "Hello from client 1!" + ConsoleColors.GREEN);
             Thread.sleep(1400);
             String msg = "Hello from client 1!";
             // Retrieve client object from HashMap
-            clientsDict.get(from).sendPacket(new Packet(to, msg), temp);
+            clientsDict.get(from).sendPacket(new Packet(to, from, msg), temp);
             Thread.sleep(2400);
-            
+
             // Display subnets
-            System.out.println("\n"+topBar+"Look at all your networks!\n");
-            System.out.print("Select an option\n" +
-                    "1 create subnet\n" + // insertNode
-                    "2 manage subnet\n" +
-                    "3 delete subnet\n" +
-                    "4 display current subnets\n" +
-                    "5 try out demo mode\n" +
-                    "6 exit\n> ");
+            System.out.println("\n" + topBar + ConsoleColors.YELLOW + "Look at all your networks!\n" + ConsoleColors.RESET);
+            System.out.print(mainOptions);
             Thread.sleep(1400);
-            System.out.println("4");
+            System.out.println(ConsoleColors.GREEN + "4" + ConsoleColors.RESET);
             Thread.sleep(1400);
             for (serverNode sub : allServers) {
-                            System.out.println(sub.getSubnetName());
-                        }
+                System.out.println(ConsoleColors.GREEN + sub.getSubnetName() + ConsoleColors.RESET);
+            }
             Thread.sleep(2400);
-            
+
             // Delete subnet
-            System.out.println("\n"+topBar+"Delete all your hard work!\n");
-            System.out.print("Select an option\n" +
-                    "1 create subnet\n" + // insertNode
-                    "2 manage subnet\n" +
-                    "3 delete subnet\n" +
-                    "4 display current subnets\n" +
-                    "5 try out demo mode\n" +
-                    "6 exit\n> ");
+            System.out.println("\n" + topBar + ConsoleColors.RED + "Delete all your hard work!\n" + ConsoleColors.RESET);
+            System.out.print(mainOptions);
             Thread.sleep(1400);
             System.out.println("3");
             Thread.sleep(1400);
-             if (allServers.size() > 0) {
-                            System.out.println("[WARNING] Action cannot be reversed!");
-                            for (int i = 0; i < allServers.size(); i++) {
-                                System.out.println(i + " " + allServers.get(i).getAddress());
-                            }
-                            System.out.print("> ");
-                            Thread.sleep(1400);
-                            System.out.println("0");
-                            Thread.sleep(1400);
-                            int index = 0;
-                            serverNode tempServerNode = allServers.get(index);
-                            try {
-                                star.remove(star.search(tempServerNode));
-                            } catch (EmptyListException e) {
-                                e.printStackTrace();
-                            } catch (InvalidPositionException e) {
-                                e.printStackTrace();
-                            }
-                            allServers.remove(index);
-             }
-             
-             System.out.println("\nExiting demo...\n\n");
-             // End the demo after one iteration
-             demo = false;
+            if (allServers.size() > 0) {
+                System.out.println(ConsoleColors.RED + "[WARNING] Action cannot be reversed!" + ConsoleColors.RESET);
+                for (int i = 0; i < allServers.size(); i++) {
+                    System.out.println(i + " " + allServers.get(i).getAddress());
+                }
+                System.out.print("> ");
+                Thread.sleep(1400);
+                System.out.println(ConsoleColors.GREEN + "0" + ConsoleColors.RESET);
+                Thread.sleep(1400);
+                int index = 0;
+                serverNode tempServerNode = allServers.get(index);
+                try {
+                    star.remove(star.search(tempServerNode));
+                } catch (EmptyListException e) {
+                    e.printStackTrace();
+                } catch (InvalidPositionException e) {
+                    e.printStackTrace();
+                }
+                allServers.remove(index);
+                System.out.println(ConsoleColors.YELLOW + "[INFO] network removed" + ConsoleColors.RESET);
+            }
+
+            System.out.println(ConsoleColors.RED + "\nExiting demo...\n\n" + ConsoleColors.RESET);
+            // End the demo after one iteration
+            demo = false;
         }
     }
 
@@ -281,13 +259,7 @@ public class StarLAN {
     public static void startScreen() {
         boolean shouldBreak = false;
         while (!shouldBreak) {
-            System.out.print("Select an option\n" +
-                    "1 create subnet\n" + // insertNode
-                    "2 manage subnet\n" +
-                    "3 delete subnet\n" +
-                    "4 display current subnets\n" +
-                    "5 try out demo mode\n" +
-                    "6 exit\n> ");
+            System.out.print(mainOptions);
             try {
                 // Reference
                 // https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
@@ -295,8 +267,9 @@ public class StarLAN {
                 switch (selection) {
                     case 1:
                         // create subnet
-                        System.out.println("Enter server full address\n" +
-                                "E.g. subnetName.serverAddress");
+                        System.out.println(ConsoleColors.YELLOW + "Enter server full address\n" +
+                                "E.g. subnetName.serverAddress" + ConsoleColors.RESET);
+                        System.out.print("> ");
                         serverNode temp = new serverNode(input.nextLine());
                         allServers.add(temp);
                         // Create the subnet
@@ -304,9 +277,9 @@ public class StarLAN {
                         break;
                     case 2:
                         // manage subnet
-                        System.out.println("Enter subnet index");
+                        System.out.println(ConsoleColors.PURPLE + "Enter subnet index" + ConsoleColors.RESET);
                         for (int i = 0; i < allServers.size(); i++) {
-                            System.out.println(i + " " + allServers.get(i).getSubnetName());
+                            System.out.println(i + " " + ConsoleColors.BLUE + allServers.get(i).getSubnetName() + ConsoleColors.RESET);
                         }
                         System.out.print("> ");
                         manageSubnet(allServers.get(Integer.parseInt(input.nextLine())));
@@ -314,28 +287,29 @@ public class StarLAN {
                     case 3:
                         // delete subnet
                         if (allServers.size() > 0) {
-                            System.out.println("[WARNING] Action cannot be reversed!");
+                            System.out.println(ConsoleColors.RED + "[WARNING] Action cannot be reversed!" + ConsoleColors.RESET);
                             for (int i = 0; i < allServers.size(); i++) {
-                                System.out.println(i + " " + allServers.get(i).getAddress());
+                                System.out.println(i + " " + ConsoleColors.BLUE + allServers.get(i).getAddress() + ConsoleColors.RESET);
                             }
                             System.out.print("> ");
                             int index = Integer.parseInt(input.nextLine());
                             serverNode tempServerNode = allServers.get(index);
                             try {
                                 star.remove(star.search(tempServerNode));
+                                allServers.remove(index);
+                                System.out.println(ConsoleColors.YELLOW + "[INFO] remove successful" + ConsoleColors.RESET);
                             } catch (EmptyListException e) {
                                 e.printStackTrace();
                             } catch (InvalidPositionException e) {
                                 e.printStackTrace();
                             }
-                            allServers.remove(index);
                         }
 
                         break;
                     case 4:
                         // List subnets
                         for (serverNode sub : allServers) {
-                            System.out.println(sub.getSubnetName());
+                            System.out.println(ConsoleColors.BLUE + sub.getSubnetName() + ConsoleColors.RESET);
                         }
                         break;
                     case 5:
@@ -373,21 +347,18 @@ public class StarLAN {
     public static void manageSubnet(serverNode s) {
         boolean shouldBreak = false;
         while (!shouldBreak) {
-            System.out.println("1. Add clients\n" +
-                    "2. Remove client\n" +
-                    "3. Send message\n" +
-                    "4. Back");
+            System.out.println(manageOptions);
             System.out.print("> ");
             try {
                 int selection = Integer.parseInt(input.nextLine());
                 switch (selection) {
                     case 1:
                         // Add client(s) to subnet
-                        System.out.println("How many client(s)?");
+                        System.out.println(ConsoleColors.GREEN + "How many client(s)?" + ConsoleColors.RESET);
                         System.out.print("> ");
                         int num = Integer.parseInt(input.nextLine());
                         for (int i = 0; i < num; i++) {
-                            System.out.print("Enter client address [e.g. client1]: ");
+                            System.out.print(ConsoleColors.PURPLE + "Enter client address [e.g. client1]: " + ConsoleColors.RESET);
                             String cAddress = s.getSubnetName() + "." + input.nextLine();
                             clientNode tempClient = new clientNode(cAddress);
                             // Add to respective data structures
@@ -398,7 +369,7 @@ public class StarLAN {
                     case 2:
                         // Remove client from subnet
                         if (clientsDict.size() > 0) {
-                            System.out.println("Enter client to remove");
+                            System.out.println(ConsoleColors.GREEN + "Enter client to remove" + ConsoleColors.RESET);
                             for (String key : clientsDict.keySet()) {
                                 System.out.println(key);
                             }
@@ -406,20 +377,20 @@ public class StarLAN {
                             String clientToRemoveAddress = input.nextLine();
                             s.remove(clientsDict.get(clientToRemoveAddress));
                             clientsDict.remove(clientToRemoveAddress);
-                            System.out.println("Client removed");
+                            System.out.println(ConsoleColors.RED + "Client removed" + ConsoleColors.RESET);
                         }
 
                         break;
                     case 3:
                         // Send message
-                        System.out.print("From: ");
+                        System.out.print(ConsoleColors.GREEN + "From: " + ConsoleColors.RESET);
                         String from = input.nextLine();
-                        System.out.print("To: ");
+                        System.out.print(ConsoleColors.GREEN + "To: " + ConsoleColors.RESET);
                         String to = input.nextLine();
-                        System.out.print("Message: ");
+                        System.out.print(ConsoleColors.GREEN + "Message: " + ConsoleColors.RESET);
                         String msg = input.nextLine();
                         // Retrieve client object from HashMap
-                        clientsDict.get(from).sendPacket(new Packet(to, msg), s);
+                        clientsDict.get(from).sendPacket(new Packet(to, from, msg), s);
 //                        fromClient.sendPacket(new Packet(to, from, msg), s);
                         break;
                     case 4:
