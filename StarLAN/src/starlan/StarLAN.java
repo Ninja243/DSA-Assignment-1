@@ -25,10 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-/**
- * @author mweya
- */
 import starlan.misc.LinkedList;
 import starlan.misc.Node;
 public class StarLAN {
