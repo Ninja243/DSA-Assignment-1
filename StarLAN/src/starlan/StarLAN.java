@@ -28,8 +28,9 @@ public class StarLAN {
     /**
      * @param args the command line arguments
      */
+    // This instance of a scanner is used to handle user input
     static Scanner input = new Scanner(System.in);
-    //
+    // This creates a new network for us to mess with
     static Star star = new Star();
     // Holds all servers for easy referencing to connected clients
     static ArrayList<serverNode> allServers = new ArrayList<>();
@@ -42,6 +43,8 @@ public class StarLAN {
 //        lltest();
     }
 
+    // This is a method we used to test the linked list due to a null pointer exception we
+    // got every once in a while.
     public static void lltest() {
         LinkedList list = new LinkedList("test");
         try {
@@ -51,6 +54,12 @@ public class StarLAN {
         }
     }
 
+    // This method describes the demonstration feature that shows off some of
+    // what this program can do. Most of this demonstration's code has been lifted
+    // from the following methods that actually handle user input so for a more in 
+    // depth explanation of how this works, have a look at the methods that follow
+    // this one.
+    // User input is simulated by pausing between printing statements to the screen.
     public static void demoMode() throws InterruptedException {
         String topBar = "\n[Demo Mode] \n";
         // This is a demo so let's  have it loop infinitely
@@ -268,6 +277,7 @@ public class StarLAN {
         }
     }
 
+    // This method is responsible for displaying and handling the first menu the user sees
     public static void startScreen() {
         boolean shouldBreak = false;
         while (!shouldBreak) {
@@ -358,6 +368,8 @@ public class StarLAN {
      *
      * @param s: main server of subnet
      */
+    // This method is responsible for the menu the user sees when they 
+    // try to manage a subnet and the handling thereof
     public static void manageSubnet(serverNode s) {
         boolean shouldBreak = false;
         while (!shouldBreak) {
@@ -425,6 +437,8 @@ public class StarLAN {
     }
 
 
+    // This is a method we used to make sure that the underlying code worked properly
+    // before implementing a menu.
     public static void testing() {
         Star star = new Star();
         serverNode server = new serverNode("subnet1.server1");
