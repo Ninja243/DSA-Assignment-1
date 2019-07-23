@@ -54,8 +54,10 @@ public class Device < AnyType > extends Node {
  public void setAddress(String address) throws InvalidAddressException {
   if (Address.isLegal(address)) {
    String[] splitAddress = address.split("\\.");
-   this.address = splitAddress[0] + "." + splitAddress[1];
+   this.address = address;
    setSubnetName(splitAddress[0]);
+//   this.address = splitAddress[0] + "." + splitAddress[1];
+//   setSubnetName(splitAddress[0]);
   } else {
    throw new InvalidAddressException();
   }

@@ -58,8 +58,8 @@ public class StarLAN {
 
     
 
-//        testing();
-        startScreen();
+        testing();
+//        startScreen();
 //        lltest();
     }
 
@@ -422,13 +422,12 @@ public class StarLAN {
         Star star = new Star();
         serverNode server = new serverNode("subnet1.server1");
 
-        clientNode c1 = new clientNode("subnet1.client1");
+        clientNode c1 = new clientNode("subnet1.server1.client1");
         clientNode c2 = new clientNode();
         clientNode c3 = new clientNode();
         try {
-//            c1.setAddress("subnet1.client1");
-            c2.setAddress("subnet1.client2");
-            c3.setAddress("subnet1.client3");
+            c2.setAddress("subnet1.server1.client2");
+            c3.setAddress("subnet1.server1.client3");
         } catch (InvalidAddressException e) {
             System.err.println(e.toString());
         }
@@ -439,17 +438,23 @@ public class StarLAN {
 
         serverNode server2 = new serverNode("subnet2.server2");
 
-        clientNode c12 = new clientNode("subnet2.client12");
+        clientNode c12 = new clientNode("subnet2.server2.client12");
         clientNode c22 = new clientNode();
         clientNode c32 = new clientNode();
+        // Add internal server with client
+        serverNode s10 = new serverNode("subnet2.server2.server_2");
+        serverNode s10c = new serverNode("subnet2.server2.server_2.client1");
+
         try {
-//            c12.setAddress("subnet2.client12");
-            c22.setAddress("subnet2.client22");
-            c32.setAddress("subnet2.client32");
+            c12.setAddress("subnet2.server2.client12");
+            c22.setAddress("subnet2.server2.client22");
+            c32.setAddress("subnet2.server2.client32");
         } catch (InvalidAddressException e) {
             System.err.println(e.toString());
         }
 
+        s10.add(s10c);
+        server2.add(s10);
         server2.add(c12);
         server2.add(c22);
         server2.add(c32);
@@ -457,23 +462,15 @@ public class StarLAN {
         star.insertNode(server);
         star.insertNode(server2);
 
-//        Packet p = new Packet("subnet2.server2", "ICMP");
-//        c1.sendPacket(p,server);
-
-//        System.out.println(c1.getAddress());
-        Packet pt = new Packet("subnet2.client12", c1.getAddress(), "Hello from client1");
+        // src address is not necessary, unless data is ICMP and dst is a server
+        Packet pt = new Packet("subnet2.server2.server_2.client1", c1.getAddress(),"Hello buddy!");
         c1.sendPacket(pt, server);
-
         try {
-            // :meth:`~LinkedList.remove(int)` works
-            // :meth:`~LinkedList.remove(Node)` doesn't work right now
-            // so use this temporary workaround
-            star.remove(star.search(server));
-            // Currently has a bug, use above as temporary workaround
-//            star.remove(server);
+            star.remove(server);
+//            star.remove(star.search(server));
         } catch (EmptyListException e) {
             e.printStackTrace();
-        } catch (InvalidPositionException e) {
+        } catch (NodeNotFoundException e) {
             e.printStackTrace();
         }
     }

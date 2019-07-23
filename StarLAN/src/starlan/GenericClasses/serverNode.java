@@ -85,7 +85,6 @@ public class serverNode<AnyType> extends Device {
 
     @Override
     public void receivePacket(Packet packet) {
-        String whereto = packet.getDestination();
         // Check if subnet is ours, else send to appropriate server of specifies subnet
         if (packet.getHeaderSubnet().equals(getSubnetName())) {
             // Is our subnet
@@ -93,7 +92,6 @@ public class serverNode<AnyType> extends Device {
             if (packet.getDestination().equals(getAddress())) {
                 // Handle pings
                 if (packet.getData().equals("ICMP") && packet.getSource() != null) {
-                    System.out.println(packet.getSource());
                     sendPacket(new Packet(packet.getSource(), "[+]ICMP REPLY[+]"), this);
                 } else {
                     handleData((AnyType) packet.getData(), packet.getSource());
@@ -102,19 +100,15 @@ public class serverNode<AnyType> extends Device {
             } else {
                 // Find client then call :meth:`receivePacket`
                 for (Device c : clients) {
-                    /*
-                    packet dst like this: subnet.server.clientx
-                    since we're already under the correct subnet
-                    let's just compare the client-end address
-                    in the above example it would be 'clientx'
+                    /* Check if is a server.
+                    Not sure on how to explain this
+                    essentially it calls receivePacket on the contained server
                      */
-
-                    String[] tempArrayClientAddress = c.getAddress().split("\\.");
-                    String[] tempArrayPacketDst = packet.getDestination().split("\\.");
-                    //end address is last element of array
-                    String cAddress = tempArrayClientAddress[tempArrayClientAddress.length - 1];
-                    String pDst = tempArrayPacketDst[tempArrayPacketDst.length - 1];
-                    if (cAddress.equals(pDst)) {
+                    if (packet.getDestination().contains(c.getAddress())) {
+                        c.receivePacket(packet);
+                        break;
+                    }
+                    if (c.getAddress().equals(packet.getDestination())) {
                         c.receivePacket(packet);
                         break;
                     }
