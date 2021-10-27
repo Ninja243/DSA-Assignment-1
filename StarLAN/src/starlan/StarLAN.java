@@ -55,12 +55,10 @@ public class StarLAN {
 
     public static void main(String[] args) {
 
+        startScreen();
 
-    
-
-        testing();
-//        startScreen();
-//        lltest();
+        // testing();
+        // lltest();
     }
 
     // This is a method we used to test the linked list due to a null pointer exception we
